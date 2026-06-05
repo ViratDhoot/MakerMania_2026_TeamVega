@@ -15,7 +15,12 @@
 # 1. Team Identity
 
 ## 1.1 Team Name and Photo
+Team Vega
 
+Photo
+<p align="center">
+  <img src="images/Team_Image.jpeg" width="400">
+</p>
 ---
 
 ## 1.2 Team Members
