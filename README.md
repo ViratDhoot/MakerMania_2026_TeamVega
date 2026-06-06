@@ -22,10 +22,11 @@ Team Vega
 
 ## 1.2 Team Members
 
-| Name  | Branch | Year | Role | Skills |<br>
-| Virat | AURO   | SE   | ---- | ------ |<br>
-| Aarya | ECS    | FE   |      |        |<br>
-| saket | CMPN   | FE   |      |        |<br>
+| Name  | Branch | Year | Role | Skills |
+| ----- | ------ | ---- | ---- | ------ |
+| Virat | AURO   | SE   | ---- | ------ |
+| Aarya | ECS    | FE   |      |        |
+| saket | CMPN   | FE   |      |        |
 
 
 # 2. Problem Discovery
