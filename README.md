@@ -17,7 +17,7 @@
 ## 1.1 Team Name and Photo
 Team Vega
 <p align="center">
-  <img src="images/Team_Image.jpeg" width="400">
+  <img src="images/Team_Image.jpeg" width="100%">
 </p>
 
 ## 1.2 Team Members
