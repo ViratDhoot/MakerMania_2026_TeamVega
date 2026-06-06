@@ -1,5 +1,8 @@
 # MAKERMANIA 2026
 
+## Training Links/Downloads
+> [BusyBuds Ad](https://youtu.be/96Pshy8Dwqc)
+
 ## Innovation Project Workbook
 
 > Program Duration: 1 June 2026 – 4 July 2026
