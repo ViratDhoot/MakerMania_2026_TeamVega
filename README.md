@@ -16,22 +16,17 @@
 
 ## 1.1 Team Name and Photo
 Team Vega
-
-Photo
 <p align="center">
   <img src="images/Team_Image.jpeg" width="400">
 </p>
----
 
 ## 1.2 Team Members
 
-| Name | Role | Skills |
-| ---- | ---- | ------ |
-|      |      |        |
-|      |      |        |
-|      |      |        |
+| Name  | Branch | Year | Role | Skills |
+| Virat | AURO   | SE   | ---- | ------ |
+| Aarya | ECS    | FE   |      |        |
+| saket | CMPN   | FE   |      |        |
 
----
 
 # 2. Problem Discovery
 
