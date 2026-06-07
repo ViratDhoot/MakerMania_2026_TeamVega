@@ -1,4 +1,4 @@
-# MAKERMANIA 2026
+# Team Vega | MakerMania 2026
 
 ## Training Links/Downloads
 > [BusyBuds Ad](https://youtu.be/96Pshy8Dwqc)
