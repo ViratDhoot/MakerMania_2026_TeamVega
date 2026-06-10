@@ -12,7 +12,6 @@
     <img src="https://img.shields.io/badge/Watch-Bloopers-red?logo=youtube" alt="BusyBuds Bloopers">
   </a>
   <a href="Training%20Material/Week%202%20-%20SCAMPER%20Activity/SCAMPER%20Activity%20-%20Team%20Vega.pptx"><img src="https://img.shields.io/badge/View-SCAMPER%20Activity%20PPT-orange?logo=microsoftpowerpoint" alt="SCAMPER Activity PPT"></a>
-
 </p>
 
 ## Repository Overview
