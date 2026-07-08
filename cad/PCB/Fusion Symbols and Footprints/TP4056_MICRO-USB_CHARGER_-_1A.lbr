@@ -1,0 +1,146 @@
+<!--This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0-->
+<eagle version="7.1.0">
+<drawing>
+<settings>
+<setting alwaysvectorfont="no"/>
+<setting verticaltext="up"/>
+</settings>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<layers>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="yes" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
+<layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
+<layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
+<layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
+<layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
+<layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
+</layers>
+<library>
+<packages>
+<package name="MODULE_TP4056_MICRO-USB_CHARGER_-_1A">
+<text x="-13" y="9" size="1.27" layer="25">&gt;NAME</text>
+<text x="-13" y="-10.25" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="-13.12" y1="8.575" x2="13.12" y2="8.575" width="0.127" layer="51"/>
+<wire x1="13.12" y1="8.575" x2="13.12" y2="-8.575" width="0.127" layer="51"/>
+<wire x1="13.12" y1="-8.575" x2="-13.12" y2="-8.575" width="0.127" layer="51"/>
+<wire x1="-13.12" y1="-8.575" x2="-13.12" y2="8.575" width="0.127" layer="51"/>
+<wire x1="-13.37" y1="8.825" x2="13.37" y2="8.825" width="0.05" layer="39"/>
+<wire x1="13.37" y1="8.825" x2="13.37" y2="-8.825" width="0.05" layer="39"/>
+<wire x1="13.37" y1="-8.825" x2="-13.37" y2="-8.825" width="0.05" layer="39"/>
+<wire x1="-13.37" y1="-8.825" x2="-13.37" y2="-4.222" width="0.05" layer="39"/>
+<wire x1="-13.37" y1="8.825" x2="-13.37" y2="4.222" width="0.05" layer="39"/>
+<wire x1="-13.37" y1="4.222" x2="-15.272" y2="4.222" width="0.05" layer="39"/>
+<wire x1="-15.272" y1="4.222" x2="-15.272" y2="-4.222" width="0.05" layer="39"/>
+<wire x1="-13.37" y1="-4.222" x2="-15.272" y2="-4.222" width="0.05" layer="39"/>
+<wire x1="-13.12" y1="-5.465" x2="-13.12" y2="5.465" width="0.127" layer="21"/>
+<wire x1="13.12" y1="2.295" x2="13.12" y2="-2.295" width="0.127" layer="21"/>
+<wire x1="-10" y1="-8.575" x2="10" y2="-8.575" width="0.127" layer="21"/>
+<wire x1="-10" y1="8.575" x2="10" y2="8.575" width="0.127" layer="21"/>
+<text x="-9.5" y="6.5" size="1.27" layer="51">IN_P</text>
+<text x="-9.5" y="-8" size="1.27" layer="51">IN_N</text>
+<text x="3.75" y="6.5" size="1.27" layer="51">OUT_P</text>
+<text x="3.75" y="3.5" size="1.27" layer="51">BAT_P</text>
+<text x="3.75" y="-4.5" size="1.27" layer="51">BAT_N</text>
+<text x="3.75" y="-7.75" size="1.27" layer="51">OUT_N</text>
+<pad name="IN_P" x="-11.725" y="7.18" drill="1" diameter="2.79" shape="square"/>
+<pad name="IN_N" x="-11.725" y="-7.18" drill="1" diameter="2.79" shape="square"/>
+<pad name="OUT_P" x="11.725" y="7.18" drill="1" diameter="2.79" shape="square"/>
+<pad name="OUT_N" x="11.725" y="-7.18" drill="1" diameter="2.79" shape="square"/>
+<pad name="BAT_P" x="11.725" y="4.01" drill="1" diameter="2.79" shape="square"/>
+<pad name="BAT_N" x="11.725" y="-4.01" drill="1" diameter="2.79" shape="square"/>
+</package>
+</packages>
+<symbols>
+<symbol name="TP4056_MICRO-USB_CHARGER_-_1A">
+<text x="-10.16" y="10.922" size="1.778" layer="95">&gt;NAME</text>
+<text x="-10.16" y="-12.7" size="1.778" layer="96">&gt;VALUE</text>
+<wire x1="-10.16" y1="10.16" x2="10.16" y2="10.16" width="0.254" layer="94"/>
+<wire x1="10.16" y1="10.16" x2="10.16" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-10.16" x2="-10.16" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-10.16" x2="-10.16" y2="10.16" width="0.254" layer="94"/>
+<pin name="IN+" x="-15.24" y="7.62" visible="pin" length="middle" direction="in"/>
+<pin name="IN-" x="-15.24" y="-7.62" visible="pin" length="middle" direction="in"/>
+<pin name="OUT+" x="15.24" y="2.54" visible="pin" length="middle" direction="out" rot="R180"/>
+<pin name="OUT-" x="15.24" y="-2.54" visible="pin" length="middle" direction="out" rot="R180"/>
+<pin name="BAT+" x="15.24" y="7.62" visible="pin" length="middle" direction="pwr" rot="R180"/>
+<pin name="BAT-" x="15.24" y="-7.62" visible="pin" length="middle" direction="pwr" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="TP4056_MICRO-USB_CHARGER_-_1A" prefix="U">
+<description> &lt;a href="https://pricing.snapeda.com/parts/TP4056%20Micro-USB%20Charger%20-%201A/Generic/view-part?ref=eda"&gt;Check availability&lt;/a&gt;</description>
+<gates>
+<gate name="G$1" symbol="TP4056_MICRO-USB_CHARGER_-_1A" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="MODULE_TP4056_MICRO-USB_CHARGER_-_1A">
+<connects>
+<connect gate="G$1" pin="BAT+" pad="BAT_P"/>
+<connect gate="G$1" pin="BAT-" pad="BAT_N"/>
+<connect gate="G$1" pin="IN+" pad="IN_P"/>
+<connect gate="G$1" pin="IN-" pad="IN_N"/>
+<connect gate="G$1" pin="OUT+" pad="OUT_P"/>
+<connect gate="G$1" pin="OUT-" pad="OUT_N"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MF" value="Generic"/>
+<attribute name="Description" value="
+                        
+                            The TP4056ES Li-Ion micro USB charger is an improved version of the TP4056, ideal for 18650 batteries, with a micro USB connection for direct PC charging.
+                        
+                    "/>
+<attribute name="Package" value="Package "/>
+<attribute name="Price" value="None"/>
+<attribute name="SnapEDA_Link" value="https://www.snapeda.com/parts/TP4056%20Micro-USB%20Charger%20-%201A/Generic/view-part/?ref=snap"/>
+<attribute name="MP" value="TP4056 Micro-USB Charger - 1A"/>
+<attribute name="Availability" value="Not in stock"/>
+<attribute name="Check_prices" value="https://www.snapeda.com/parts/TP4056%20Micro-USB%20Charger%20-%201A/Generic/view-part/?ref=eda"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
+</drawing>
+</eagle>
