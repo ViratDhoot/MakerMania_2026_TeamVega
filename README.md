@@ -4,307 +4,806 @@
   <img src="images/Brawl Box Mini PCB Routing.png" width="85%" height="" alt="Brawl Box Mini PCB">
 </p>
 
+<h1 align="center">🎮 Brawl Box</h1>
+
 <p align="center">
-  <img src="https://img.shields.io/badge/MakerMania-2026-blue" alt="MakerMania 2026">
-  <img src="https://img.shields.io/badge/Team-Vega-purple" alt="Team Vega">
-  <img src="https://img.shields.io/badge/Project-Brawl%20Box%20Mini-orange" alt="Brawl Box Mini">
-  <img src="https://img.shields.io/badge/Status-V1%20PCB%20%26%20ESP--NOW%20Sync-yellow" alt="Status">
-  <a href="docs/Project%20Specs%20-%20Brawl%20Box%20Mini/README.md">
-    <img src="https://img.shields.io/badge/View-Project%20Specs-green" alt="Project Specs">
-  </a>
-  <a href="https://groovy-target-365.notion.site/Brawl-Box-384fc8af23368001a3b7db0b6b2d9bc3?pvs=73">
-    <img src="https://img.shields.io/badge/Notion-BOM%20Tracker-black?logo=notion" alt="Brawl Box Notion BOM">
-  </a>
-  <a href="https://youtu.be/96Pshy8Dwqc">
-    <img src="https://img.shields.io/badge/Watch-BusyBuds%20Ad-red?logo=youtube" alt="BusyBuds Ad">
-  </a>
-  <a href="https://youtu.be/p63lrrhlUBI">
-    <img src="https://img.shields.io/badge/Watch-Bloopers-red?logo=youtube" alt="BusyBuds Bloopers">
-  </a>
+A handheld multiplayer gaming platform built around ESP32 for <b>MakerMania 2026</b>.
 </p>
 
+<p align="center">
+
+<img src="https://img.shields.io/badge/MakerMania-2026-2563EB?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Team-Vega-7C3AED?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Hardware-ESP32-10B981?style=for-the-badge" />
+<img src="https://img.shields.io/badge/PCB-KiCad-E11D48?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Status-Active%20Development-F59E0B?style=for-the-badge" />
+
+</p>
+
+<p align="center">
+
+<a href="docs/Project Specs - Brawl Box Mini/README.md">
+<img src="https://img.shields.io/badge/📄_Project_Specifications-View-success?style=flat-square">
+</a>
+
+<a href="https://groovy-target-365.notion.site/Brawl-Box-384fc8af23368001a3b7db0b6b2d9bc3?pvs=73">
+<img src="https://img.shields.io/badge/📦_Live_BOM-Notion-black?style=flat-square&logo=notion">
+</a>
+
+<a href="Training%20Material/README.md">
+<img src="https://img.shields.io/badge/📚_Training_Material-View-blue?style=flat-square">
+</a>
+
+<a href="https://youtu.be/96Pshy8Dwqc">
+<img src="https://img.shields.io/badge/🎬_BusyBuds_Ad-Watch-red?style=flat-square&logo=youtube">
+</a>
+
+<a href="https://youtu.be/p63lrrhlUBI">
+<img src="https://img.shields.io/badge/😂_BusyBuds_Bloopers-Watch-red?style=flat-square&logo=youtube">
+</a>
+
+</p>
 
 ---
 
-## Repository Overview
+# Repository Overview
 
-This repository documents **Team Vega’s MakerMania 2026 journey** at **MBF Tinkerers' Lab, VESIT**.
+This repository documents **Team Vega's complete MakerMania 2026 journey** at **MBF Tinkerers' Lab, VESIT**.
 
-It is maintained as a working project notebook for training work, CAD/3D printing practice, laser cutting, problem discovery, user research, prototype development, testing, documentation, and final pitch preparation.
+It serves as a central workspace for documenting our engineering process—from problem discovery and user research to PCB design, embedded systems development, prototyping, testing, documentation, and final product development.
 
-Our current main project direction is **Brawl Box Mini** — a compact, physical handheld multiplayer gaming console prototype prioritizing tactile hardware feedback and ESP-NOW local networking over standard screen-based gaming.
+Our primary project is **Brawl Box**, a handheld multiplayer gaming platform built around ESP32.
 
----
-
-## Quick Links
-
-| Section                                | Link                                                                                                           |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Brawl Box Mini Project Specs           | [View Project Specs](docs/Project%20Specs%20-%20Brawl%20Box%20Mini/README.md)                                  |
-| Live BOM / Component Tracker           | [View Notion BOM](https://groovy-target-365.notion.site/Brawl-Box-384fc8af23368001a3b7db0b6b2d9bc3?pvs=73)     |
-| Week 1 Training Summary                | [Training Material README](Training%20Material/README.md)                                                      |
-| BusyBuds Documentation                 | [Week 1 Useless Product README](Training%20Material/Week%201%20Useless%20Product/README.md)                    |
-| BusyBuds Product Ad                    | [Watch on YouTube](https://youtu.be/96Pshy8Dwqc)                                                               |
-| BusyBuds Bloopers / BTS                | [Watch on YouTube](https://youtu.be/p63lrrhlUBI)                                                               |
-| Problem Discovery                      | [View Problem Discovery Section](#2-problem-discovery)                                                         |
-| User Research Summary                  | [Problem Statement Response Summary](docs/User%20Research/Problem%20Statement%20Response%20Summary.md)         |
-| SCAMPER Activity                       | [View PPT](Training%20Material/Week%202%20-%20SCAMPER%20Activity/SCAMPER%20Activity%20-%20Team%20Vega.pptx)    |
-| ESP32 Revision Proof                   | [LED Series Blink Video](Training%20Material/Week%202%20-%20ESP32%20Revision/ESP32%20LED%20Series%20Blink.mp4) |
+Unlike traditional phone-based multiplayer games, Brawl Box focuses on **physical interaction**, **wireless multiplayer gameplay**, and **embedded hardware**, making it a fun and expandable electronics platform rather than just a single game.
 
 ---
 
-## BusyBuds Useless Product Activity
+# Current Project
 
-As part of the Week 1 useless product activity, we created **BusyBuds** — fake earbuds that do not play sound, but help you look busy.
+## 🎮 Brawl Box Mini
 
-| BusyBuds Product Ad                                                                                                         | BusyBuds Bloopers / BTS                                                                                                     |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| <a href="https://youtu.be/96Pshy8Dwqc"><img src="https://img.youtube.com/vi/96Pshy8Dwqc/maxresdefault.jpg" width="380"></a> | <a href="https://youtu.be/p63lrrhlUBI"><img src="https://img.youtube.com/vi/p63lrrhlUBI/maxresdefault.jpg" width="380"></a> |
-| [Watch Product Ad](https://youtu.be/96Pshy8Dwqc)                                                                            | [Watch Bloopers / BTS](https://youtu.be/p63lrrhlUBI)                                                                        |
+The first version currently under development.
 
----
+A compact OLED-based handheld built around the ESP32 with local multiplayer support using **ESP-NOW**.
 
-## Innovation Project Workbook
+Current hardware includes:
 
-> Program Duration: 1 June 2026 – 4 July 2026  
-> Location: MBF Tinkerers' Lab 007  
-> Team Size: 3 Students  
-> Goal: Identify a real-world problem and develop an innovative, patentable, and implementable solution.
+- ESP32-WROOM-32
+- 1.3" OLED Display
+- Joystick
+- Rotary Encoder
+- Speaker (Testing)
+- Rechargeable LiPo Battery
+- TP4056 Charging
+- MT3608 Boost Converter
 
----
+Current focus:
 
-## Repository Navigation
-
-| Folder / File                                  | Purpose                                                                                   |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `README.md`                                    | Main project documentation and progress tracker                                           |
-| `Instruction.md`                               | GitHub and documentation instructions shared by MBFTL                                     |
-| `images/`                                      | Team photos, UI mockups, and common images used in documentation                          |
-| `cad/`                                         | PCB CAD, KiCad files, block diagrams, and enclosure 3D models                             |
-| `cad/KiCad Project - Brawl Box Mini V1 (MAIN)/`| Current KiCad schematic & single-layer PCB routing for the V1 MakerMania sprint           |
-| `cad/KiCad Project - Brawl Box Emulator/`      | Advanced double-layer PCB architecture for the future V2 TFT roadmap                      |
-| `code/`                                        | ESP32 code files, ESP-NOW test programs, and single-player game logic                     |
-| `docs/Project Specs - Brawl Box Mini/`         | Brawl Box Mini (V1) project specifications, BOM, architecture, and planning               |
-| `docs/User Research/`                          | Google Form response summary, anonymized data, and user research notes                    |
-| `Training Material/Week 1 Useless Product/`    | BusyBuds STL files, printed product photo, thumbnail, and detailed documentation          |
-| `Training Material/Week 2 - SCAMPER Activity/` | SCAMPER activity PPT and ideation notes                                                   |
-| `Training Material/Week 2 - ESP32 Revision/`   | ESP32 revision proof video and basic hardware testing activity                            |
-
-<details>
-<summary><b>📁 View Individual Training Folders</b></summary>
-
-| Folder                                         | Contents                                                                                  |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `Training Material/Aarya Tanwade/`             | CAD practice, laser cutting files, ID card design, keychain models, and 3D modelling work |
-| `Training Material/Saket Kunjathur/`           | ID card files, keychain model, stuffing box CAD files, and 3D modelling work              |
-| `Training Material/Virat Dhoot/`               | Virat’s training material folder                                                          |
-
-</details>
+- PCB fabrication
+- Firmware development
+- Game development
+- Hardware testing
+- Prototype assembly
 
 ---
 
-## Progress Log
+## 🕹 Future Roadmap
 
-| Phase  | Activity                            | Output / Evidence                                                                                                        | Status         |
-| ------ | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------- |
-| Week 1 | Startup Speed Dating                | Team interaction and activity-based introductions                                                                        | ✅ Completed    |
-| Week 1 | Fusion 360 / CAD basics             | CAD practice and training files inside `Training Material/`                                                              | ✅ Completed    |
-| Week 1 | Laser cutting basics                | MDF design / ID card style laser cutting activity                                                                        | ✅ Completed    |
-| Week 1 | 3D printing basics                  | STL files and printed outputs created during training                                                                    | ✅ Completed    |
-| Week 1 | Useless Product activity            | BusyBuds concept, 3D model, printed product, ad video, and bloopers                                                      | ✅ Completed    |
-| Week 1 | Documentation setup                 | Main README, Training Material README, and BusyBuds README updated                                                       | ✅ Completed    |
-| Week 2 | Google Form response review         | Reviewed problem statements collected through the Google Form and identified early problem themes                        | ✅ Completed    |
-| Week 2 | Problem statement discussion        | Discussed Google Form ideas and team-generated ideas based on feasibility, hardware scope, and user pain                 | ✅ Completed    |
-| Week 2 | SCAMPER activity                    | Explored ideas using the SCAMPER framework and selected a gig worker heat/safety device idea for the activity discussion | ✅ Completed    |
-| Week 2 | ESP32 revision session              | Revised ESP32 basics through a simple LED series blink demonstration uploaded as proof of work                             | ✅ Completed    |
-| Week 2 | Project direction discussion        | Explored multiple ideas and moved toward a handheld multiplayer device concept                                           | ✅ Completed    |
-| Week 2 | Brawl Box component planning        | Prepared component list, power architecture, and device-level hardware plan                                              | ✅ Completed    |
-| Week 2 | V1 Schematic / Block Diagram        | Initial KiCad and rough hardware architecture for V1 completed                                                           | ✅ Completed    |
-| Week 3 | Multiplayer Logic (Maze Blaze)      | ESP-NOW Host/Client lobby setup and maze synchronization logic                                                           | 🔄 In progress |
-| Week 3 | Single-Player / Menu Development    | Developing single-player fallback games and main device UI menu                                                          | 🔄 In progress |
-| Week 3 | V1 PCB Routing & Optimization       | Single-layer bottom-routed layout in KiCad; optimizing tactile button placement                                          | 🔄 In progress |
+After completing **Brawl Box Mini**, the project will evolve into **Brawl Box Emulator**.
+
+Planned upgrades include:
+
+- 2.8" TFT Display
+- MicroSD Card
+- NES/GameBoy Emulator
+- Larger Battery
+- Better Audio
+- Improved Enclosure
+- Multiple Game Support
+
+The Mini serves as the foundation for this future version.
 
 ---
 
+# Quick Links
+
+| Resource | Link |
+|----------|------|
+| 📄 Project Specifications | [`docs/Project Specs - Brawl Box Mini`](docs/Project%20Specs%20-%20Brawl%20Box%20Mini/README.md) |
+| 📦 Live Component Tracker | https://groovy-target-365.notion.site/Brawl-Box-384fc8af23368001a3b7db0b6b2d9bc3?pvs=73 |
+| 📊 User Research Summary | [`docs/User Research/Problem Statement Response Summary.md`](docs/User%20Research/Problem%20Statement%20Response%20Summary.md) |
+| 📑 Google Form Responses | [`docs/User Research`](docs/User%20Research/) |
+| 🎬 BusyBuds Documentation | [`Training Material/Week 1 Useless Product`](Training%20Material/Week%201%20Useless%20Product/) |
+| 🧠 SCAMPER Activity | [`Week 2 - SCAMPER Activity`](Training%20Material/Week%202%20-%20SCAMPER%20Activity/) |
+| 💡 Training Material | [`Training Material`](Training%20Material/) |
+
+---
+
+# Current Status
+
+| Stage | Status |
+|--------|:------:|
+| Problem Discovery | ✅ |
+| User Research | ✅ |
+| Project Selection | ✅ |
+| Component Planning | ✅ |
+| PCB Schematic | ✅ |
+| PCB Layout | 🟡 Optimizing |
+| Prototype Assembly | 🟡 In Progress |
+| Hardware Testing | ⏳ |
+| Game Development | ⏳ |
+| Multiplayer | ⏳ |
+| Enclosure Design | ⏳ |
+| Final Demonstration | ⏳ |
+
+---
+
+# Repository Structure
+
+```text
+.
+│
+├── cad/
+│   ├── PCB/
+│   ├── KiCad Projects/
+│   ├── Symbols & Footprints/
+│   └── PCB 3D Models/
+│
+├── code/
+│
+├── docs/
+│   ├── Project Specs - Brawl Box Mini/
+│   ├── User Research/
+│   ├── Hardware Decisions/
+│   ├── Testing/
+│   ├── Known Issues/
+│   └── Future Improvements/
+│
+├── images/
+│
+├── Training Material/
+│
+├── README.md
+└── Instruction.md
+```
+
+---
+
+# Progress Log
+
+| Week | Activity | Status |
+|------|----------|:------:|
+| Week 1 | Startup Speed Dating | ✅ |
+| Week 1 | Fusion 360 Training | ✅ |
+| Week 1 | Laser Cutting | ✅ |
+| Week 1 | 3D Printing | ✅ |
+| Week 1 | BusyBuds Useless Product | ✅ |
+| Week 1 | GitHub Documentation Setup | ✅ |
+| Week 2 | Problem Discovery | ✅ |
+| Week 2 | User Research Analysis | ✅ |
+| Week 2 | SCAMPER Activity | ✅ |
+| Week 2 | ESP32 Revision | ✅ |
+| Week 3 | Brawl Box Ideation | ✅ |
+| Week 3 | Component Planning | ✅ |
+| Week 4 | PCB Schematic | ✅ |
+| Week 4 | PCB Routing | 🟡 |
+| Week 5 | Prototype Assembly | 🟡 |
+| Week 6 | Firmware Development | ⏳ |
+
+---
 # 1. Team Identity
 
-## 1.1 Team Name and Photo
+---
 
-**Team Vega**
+## Team Name
+
+# **Team Vega** ⭐
 
 <p align="center">
-  <img src="images/Team_Image.jpeg" width="100%">
+  <img src="images/Team_Image.jpeg" width="80%" alt="Team Vega">
 </p>
 
-## 1.2 Team Members
-
-| Name            | Branch | Year | Project Contribution                                                                                                                                           | Skills / Interests                                                                             |
-| --------------- | ------ | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Aarya Tanwade   | ECS    | FE   | Lead Hardware Architect; PCB Design (Schematic, Layout, Routing, & Manufacturing); Single-player game logic & UI menu; Project documentation; Video editing. | AI/ML, Python, Embedded Systems (ESP32, Raspberry Pi), KiCad, Product Thinking, Video Editing. |
-| Virat Dhoot     | AURO   | SE   | 3D Enclosure Design, Ideation discussions, team activity participation, hardware assembly preparation.                                                                              | Python, automation/robotics interest, hardware prototyping                                     |
-| Saket Kunjathur | CMPN   | FE   | Software Lead, Maze Blaze multiplayer game logic, ESP-NOW Host/Client lobby setup, PAM8403 breadboard testing.                                                                | Programming, CAD/Fusion 360 practice, KiCad basics, ESP32 Wi-Fi/ESP-NOW logic                  |
 ---
 
-## 1.3 Week 1 Training Summary
+## Team Members
 
-Week 1 focused on learning the basic workflow of hardware prototyping.
-
-### Activities Covered
-* 🤝 Startup Speed Dating activity
-* 🧩 Fusion 360 / CAD basics
-* 🔥 Laser cutting basics
-* 🖨️ 3D printing basics
-* 🎧 Useless product activity
-* 🎬 BusyBuds product ad and pitch
-* 📝 GitHub documentation setup
-
-Detailed Week 1 summary: [Training Material README](Training%20Material/README.md)
+| Member | Branch | Year | Primary Responsibilities | Current Focus |
+|---------|--------|------|--------------------------|---------------|
+| **Aarya Tanwade** | ECS | FE |Embedded systems, PCB design, firmware, documentation, video editing | Brawl Box Mini PCB development, GitHub documentation, single-player game development, 3D Model/Enclosure |
+| **Saket Kunjathur** | CMPN | FE | Game ideation, Software, Game logic, Prototyping |Multiplayer Game Development |
+| **Virat Dhoot** | AURO | SE | Ideation, testing, project discussions | Currently occupied with KT examinations |
 
 ---
 
-### Week 1 Highlight: BusyBuds
-BusyBuds was our useless product activity output. It is a pair of fake solid earbuds that do not play audio, do not connect to Bluetooth, and do not require charging. The idea was to pitch it like a real product by framing it as a social signal for looking busy and avoiding interruptions.
+## Team Vision
 
-* [BusyBuds Documentation](Training%20Material/Week%201%20Useless%20Product/README.md)
-* [BusyBuds Product Ad](https://youtu.be/96Pshy8Dwqc)
-* [BusyBuds Bloopers / BTS](https://youtu.be/p63lrrhlUBI)
+Our objective is to build practical, well-engineered hardware products by combining electronics, embedded systems, CAD, rapid prototyping, and product design.
 
----
-
-## 1.4 Week 2 Update: Problem Discovery, SCAMPER & ESP32 Revision
-
-Week 2 started with problem discussions, user research, ideation activities, and basic electronics revision.
-
-### SCAMPER Activity Summary
-During the SCAMPER activity, we discussed multiple ideas and tried to evaluate them from different angles. 
-One idea discussed by Virat was a local-train bag holder for people who experience shoulder pain while carrying heavy bags. However, we dropped it because the load was mostly shifted rather than reduced. 
-Another idea discussed was a low-cost safety device for delivery and gig workers. This idea was selected for the SCAMPER activity and used for ideation practice, but it was not finalized as the main project direction.
-
-### ESP32 Revision
-We also had a basic ESP32 revision session. A simple LED series blink activity was performed as proof of hardware testing.
-Evidence: [ESP32 LED Series Blink Video](Training%20Material/Week%202%20-%20ESP32%20Revision/ESP32%20LED%20Series%20Blink.mp4)
+Rather than simply completing activities, this repository documents our engineering process—from identifying problems to designing, prototyping, testing, and continuously improving our solutions.
 
 ---
 
-# 2. Problem Discovery
+# Training Journey
 
-## 2.1 Observation Area
-
-Problem discovery started with real-life problem statements collected through Google Form responses, personal observations, informal discussions, team discussions, and mentor feedback.
-
-**Current status:**
-* Google Form responses were reviewed, and early ideas were discussed.
-* Ideas that were too expensive, software-heavy, or difficult to prototype within a 30-day sprint were dropped.
-* The current selected direction is **Brawl Box Mini**, focusing on **Maze Blaze**, a 2-player handheld multiplayer console.
+MakerMania started with several hands-on activities to build familiarity with rapid prototyping, fabrication tools, electronics, documentation, and product thinking before beginning the final innovation project.
 
 ---
 
-## 2.2 AEIOU Observation Sheet
+# Week 1 — Foundations
 
-### Activities (What are users doing?)
-* Users are being asked about repeated tasks, inconveniences, and situations where they face difficulty or boredom.
-* For Brawl Box Mini, we are observing how students engage with casual games, physical controls, group play, and screen-free multiplayer activities (e.g., racing through a maze and throwing digital bombs via a rotary encoder).
+## Activities Completed
 
-### Environment (What conditions affect them?)
-* For Brawl Box Mini, the intended environment is a casual indoor setting such as a classroom, lab, home, college space, or maker showcase table.
+- ✅ Startup Speed Dating
+- ✅ Fusion 360 Basics
+- ✅ Laser Cutting
+- ✅ 3D Printing
+- ✅ Useless Product Activity
+- ✅ Product Advertisement
+- ✅ GitHub Documentation
 
-### Interactions (Who or what are they interacting with?)
-* For Brawl Box Mini, users interact with a handheld console, 1.3" OLED display, tactile push buttons, rotary encoder, PAM8403 audio amplifier, vibration feedback, and dynamically with the other player via ESP-NOW.
+During the first week, the focus was on becoming familiar with the complete product development workflow.
 
-### Objects (What tools or products are used?)
-* Existing tools and workarounds were documented while evaluating problem statements.
-* For Brawl Box Mini, objects include ESP32 WROOM boards, 1.3" OLED displays, rotary encoders, PAM8403 modules, 8Ω speakers, DC vibration motors, LiPo batteries, and 3D printed enclosures.
+We learned how to:
 
-### Users (Who are the primary users?)
-* For Brawl Box Mini, the primary users are students, children, casual players, and maker-event visitors who want to play short physical multiplayer games without needing smartphones.
+- Design basic CAD models using Fusion 360
+- Prepare laser-cuttable DXF files
+- Understand the complete 3D printing workflow
+- Present ideas through storytelling
+- Maintain engineering documentation using GitHub
 
----
+Most importantly, we learned that **good engineering is not only about building products, but also about communicating ideas effectively.**
 
-## 2.3 Observation Log
+Detailed documentation of every activity is available here:
 
-| Observation                                                                                                            | Evidence                          | Pain Point / Note                                                |
-| ---------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ---------------------------------------------------------------- |
-| Multiple problem statements were collected through a Google Form.                                                      | Google Form responses             | Used as input for early problem discovery                        |
-| Some ideas came from user responses, while others came from team discussion and SCAMPER activity.                      | Form responses + team discussion  | Needed evaluation and filtering                                  |
-| Public transport-related issues appeared in responses, including local train crowding, ventilation, and bus tracking.  | Form responses                    | Some issues are real but may need infrastructure-level solutions |
-| Local-train commuters carrying heavy bags may face shoulder pain.                                                      | Team discussion                   | Idea dropped because load was shifted, not reduced               |
-| Reminder, focus, and procrastination-related problems appeared in responses.                                           | Form responses                    | More software-heavy, not currently preferred for hardware sprint |
-| A 2-player handheld multiplayer game device was discussed as a physical, screen-free, electronics-focused product.     | Team discussion + mentor feedback | Selected for V1 component planning and hardware design           |
+📂 **Training Material**
 
----
-
-# 3. User Research
-
-## 3.1 Interview / Form Response Summary
-Number of form responses reviewed: 10
-
-Current status:
-* User problem collection was started through a Google Form and informal discussions.
-* Final shortlisting was based on user pain, frequency, feasibility, cost, hardware scope, and mentor discussion.
-* Response summary: [Problem Statement Response Summary](docs/User%20Research/Problem%20Statement%20Response%20Summary.md)
+```
+Training Material/
+```
 
 ---
 
-## 3.2 Key Quotes
-1. *In progress*
-2. *In progress*
-3. *In progress*
+# Week 1 Highlight — BusyBuds
+
+One of the most memorable activities was creating a completely useless product.
+
+Our team built **BusyBuds**.
+
+Instead of solving a real problem, BusyBuds solves a fictional one:
+
+> "Looking busy without actually listening to anyone."
+
+BusyBuds are solid fake earbuds.
+
+They have:
+
+- ❌ No Bluetooth
+- ❌ No Battery
+- ❌ No Audio
+- ❌ No Charging
+
+They simply help you *look* busy.
+
+Despite being intentionally useless, the challenge was to convince people that they actually needed the product.
+
+This activity taught us:
+
+- Product positioning
+- Marketing
+- Storytelling
+- Product presentation
+- Creative thinking
+- Video production
 
 ---
 
-## 3.3 User Persona
+## BusyBuds Gallery
 
-**Name:** Casual student / young player
-**Age:** 10–20 years
-**Occupation:** Student / casual player
+<p align="center">
 
-**Goals:**
-* Play a quick and fun multiplayer game physically.
-* Compete with friends without needing a phone.
-* Experience a simple but interactive gaming device.
+<img src="Training%20Material/Week%201%20Useless%20Product/BusyBuds%203D%20Printed.jpeg" width="42%">
+&nbsp;&nbsp;
+<img src="Training%20Material/Week%201%20Useless%20Product/BusyBuds%20Thumbnail.jpeg" width="42%">
 
-**Frustrations:**
-* Many casual games are phone/app based.
-* Board games can feel repetitive.
-* DIY electronic games often look unfinished or lack physical feedback.
-
-**Needs:**
-* Simple rules and quick setup.
-* Clear visual interface on an OLED screen.
-* Tactile controls (D-Pad and Rotary dial).
-* Fun physical feedback through PAM8403 audio and vibration motors.
+</p>
 
 ---
 
-# 4. Problem Framing
+### Related Resources
 
-## Problem Statement
-
-Students and young casual players need a fun, portable, screen-free physical multiplayer gaming experience because many casual multiplayer games are either phone-based, board-game based, or lack tactile electronic interaction.
-
-**Current framing:**
-**Brawl Box Mini** aims to create a compact handheld multiplayer console where each player gets a dedicated physical device featuring tactile controls, a rotary encoder, an OLED display, audio, vibration, and ESP-NOW wireless interaction.
-
----
-
-## How Might We Questions
-
-1. How might we create a physical multiplayer game experience that does not depend on smartphones?
-2. How might we make a low-cost DIY handheld gaming device that feels polished and interactive?
-3. How might we use physical controls (rotary encoder), sound (PAM8403), and vibration to make the game more engaging than a simple screen-only game?
-4. How might we design the hardware so it can support multiple simple games via firmware in the future?
+| Resource | Link |
+|----------|------|
+| Documentation | `Training Material/Week 1 Useless Product/README.md` |
+| Product Advertisement | https://youtu.be/96Pshy8Dwqc |
+| Bloopers / Behind the Scenes | https://youtu.be/p63lrrhlUBI |
+| STL Files | `Training Material/Week 1 Useless Product/` |
 
 ---
 
-## Opportunity Ranking
+# Week 2 — From Ideas to Engineering
 
-| Criteria         | Score / Note                                                                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| Severity         | Medium — entertainment/problem framing is lighter than safety problems, but the product has clear interaction value            |
-| Frequency        | Medium — casual play can happen repeatedly in school/college/home/event settings                                               |
-| Feasibility      | High — ESP32, OLED, buttons, audio, vibration, and enclosure are buildable within the sprint                                   |
-| Novelty          | Medium to High — physical multiplayer handheld devices with rotary targeting and haptic feedback can make the project distinct |
-| Market Potential | Medium — possible as a student activity/game kit or maker showcase product                                                     |
-| Total            | *In progress*                                                                                                                  |
+Week 2 marked the transition from training activities to actual product development.
+
+Instead of learning individual tools, the focus shifted towards identifying meaningful problems and evaluating them from an engineering perspective.
 
 ---
+
+## Activities Completed
+
+- ✅ Problem Discovery
+- ✅ User Research
+- ✅ Google Form Analysis
+- ✅ SCAMPER Activity
+- ✅ ESP32 Revision
+- ✅ Hardware Ideation
+- ✅ Component Planning
+- ✅ PCB Design
+
+---
+
+## Problem Discovery
+
+We collected and reviewed real-world problem statements through:
+
+- Google Forms
+- Team discussions
+- Daily observations
+- Mentor feedback
+
+Rather than selecting the first interesting idea, multiple concepts were evaluated based on:
+
+- User pain
+- Hardware feasibility
+- Cost
+- Prototype complexity
+- Available timeline
+
+This process helped us eliminate several ideas before arriving at our current project direction.
+
+---
+
+## SCAMPER Activity
+
+As part of the ideation process, our team explored different solution spaces using the SCAMPER framework.
+
+Some ideas discussed included:
+
+- Local train bag support
+- Delivery worker safety
+- Automatic car AC controller
+- Gym equipment tracker
+- Student productivity devices
+
+Although these ideas were not selected, the activity helped us practice structured product thinking and evaluate ideas critically instead of emotionally.
+
+The complete activity presentation is available inside:
+
+```
+Training Material/
+└── Week 2 - SCAMPER Activity/
+```
+
+---
+
+## ESP32 Revision
+
+Before beginning the final project, we revised the ESP32 development workflow through a simple hardware exercise involving GPIO programming and LED control.
+
+This session helped refresh:
+
+- ESP32 programming
+- GPIO handling
+- Arduino workflow
+- Hardware debugging
+
+The revision activity can be found in:
+
+```
+Training Material/
+└── Week 2 - ESP32 Revision/
+```
+
+---
+
+## Choosing Our Final Direction
+
+After multiple rounds of discussion, we shortlisted **Brawl Box** as our primary project.
+
+Unlike our earlier concepts, Brawl Box offered:
+
+- Strong hardware scope
+- Embedded systems integration
+- PCB design
+- Wireless communication
+- Game development
+- Product design
+- Future expandability
+
+The project also allowed us to build something genuinely enjoyable while still demonstrating substantial engineering depth.
+
+It has since become the primary focus of Team Vega's MakerMania journey.
+
+---
+
+# 5. Solution Ideation
+
+## Brainstormed Ideas
+
+| Idea                                              | Source                              | Advantages                                                                                                | Challenges                                                                      | Current Status                |
+| ------------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------- |
+| Non-invasive automatic AC control for manual cars | Form response / user input          | Clear user pain, hardware-based, does not require modifying car electronics                               | Reliable mounting, vibration, actuator force, dashboard compatibility           | Discussed                     |
+| Gym equipment movement quality tracker            | Team discussion                     | Practical, sensor-based, useful for beginners, measurable movement data                                   | Cannot track full body posture with only equipment sensor, needs careful scope  | Discussed                     |
+| Gig worker heat and safety tracking device        | SCAMPER activity / team discussion  | Socially relevant, low-cost wearable/device direction, useful in Indian outdoor conditions                | Needs focused problem framing, sensor accuracy, comfort, battery life           | Used for SCAMPER activity     |
+| AI road-safety detection system                   | Team discussion / mentor feedback   | High-impact idea, connects to traffic safety and violations                                               | Costly, AI-heavy, power-heavy, difficult for 30-day prototype                   | Deprioritized                 |
+| Bus tracking / public transport issue             | Form response                       | Useful for commuters, clear user inconvenience                                                            | May become software/infrastructure-heavy, needs external data or system support | Discussed                     |
+| Wake-up / alarm problem                           | Form response                       | Common issue, possible physical product direction                                                         | Needs stronger uniqueness and validation                                        | Discussed                     |
+| Brawl Box Mini handheld multiplayer console       | Team discussion / mentor discussion | Hardware-first, buildable, interactive, expandable, allows display/buttons/audio/vibration/enclosure work | Needs strong gameplay, clean enclosure, and stable wireless communication       | **Selected direction**        |
+
+---
+
+## Selected Concept
+
+The current selected project direction is **Brawl Box Mini** — a compact handheld multiplayer gaming console prototype.
+
+The core game is **Maze Blaze**, a 2-player local multiplayer game where players spawn from different corners of a dynamically generated maze and race toward the center while collecting abilities such as speed boosts and bomb-based attacks. Each player uses a separate handheld device featuring a 1.3" OLED display, physical buttons, rotary encoder, PAM8403 sound feedback, vibration feedback, and ESP-NOW wireless communication.
+
+While *Maze Blaze* is the flagship multiplayer experience, the Brawl Box Mini is designed as a platform that also supports single-player fallback games via a unified menu.
+
+Detailed project specifications and component list:
+[View Brawl Box Mini Project Specs](docs/Project%20Specs%20-%20Brawl%20Box%20Mini/README.md)
+
+Live component tracker:
+[View Brawl Box Notion BOM](https://groovy-target-365.notion.site/Brawl-Box-384fc8af23368001a3b7db0b6b2d9bc3?pvs=73)
+
+---
+# 6. System Design (V1)
+
+## High-Level Description
+
+**Brawl Box Mini (V1)** is a 2-device handheld multiplayer gaming system. Each device acts as an individual player console with its own OLED screen, tactile controls, audio output, haptic feedback, and portable battery power.
+
+The primary interaction revolves around physical controls: the D-Pad is used for movement, while the Rotary Encoder adds a hardware-first interaction layer for menu scrolling and tactical bomb targeting.
+
+---
+
+## Block Diagram
+
+```text
+🔋 3.7V LiPo Battery
+   ↳ TP4056 Type-C Charging Module
+     ↳ Slide Switch
+       ↳ MT3608 Boost Converter (set to 5V)
+         ↳ ESP32 DevKit V1 (WROOM-32)
+            ├── 1.3" I2C OLED Display
+            ├── Tactile Push Buttons
+            ├── Rotary Encoder
+            ├── PAM8403 Audio Amplifier + Speaker
+            ├── DC Vibration Motor
+            └── ESP-NOW Wireless Sync
+```
+
+---
+
+## Inputs
+
+| Input                            | Purpose                                                        |
+| -------------------------------- | -------------------------------------------------------------- |
+| Push buttons                     | D-Pad movement, action, select, back/menu controls             |
+| Rotary encoder                   | Menu navigation, player selection, and bomb targeting          |
+| Power switch                     | Turns the device ON/OFF                                        |
+| Wireless data from other devices | Receives opponent position, game state, and multiplayer events |
+
+---
+
+## Outputs
+
+| Output                         | Purpose                                                             |
+| ------------------------------ | ------------------------------------------------------------------- |
+| 1.3" OLED display              | Shows game screen, maze, player status, menu, health, and abilities |
+| 8Ω Speaker                     | Plays game sound effects via the ESP32 DAC and PAM8403 amplifier    |
+| Vibration motor                | Gives haptic feedback for bomb hits, damage, and alerts             |
+| Wireless data to other devices | Sends player movement, ability use, and game events                 |
+
+---
+
+# 7. Technical Planning
+
+## Electronics (V1 Core)
+
+| Component                                           | Purpose                                                                                                     |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| ESP32 DevKit V1 (WROOM-32)                          | Main microcontroller for game logic, graphics, inputs, audio control, vibration, and wireless communication |
+| 1.3" I2C OLED Display                               | Main visual interface for gameplay and menus                                                                |
+| Tactile Push Buttons                                | Movement and action controls                                                                                |
+| Rotary Encoder                                      | Menu control, opponent targeting, and bomb placement                                                        |
+| PAM8403 Audio Amplifier                             | Drives audio output from the ESP32 internal DAC                                                             |
+| 8Ω Speaker                                          | Audio output for game effects                                                                               |
+| DC Vibration Motor Module                           | Haptic feedback during gameplay                                                                             |
+| 3.7V 2000mAh LiPo Battery                           | Portable power source                                                                                       |
+| TP4056 Type-C Charging Module                       | Charges the LiPo battery                                                                                    |
+| MT3608 Boost Converter                              | Boosts battery voltage to 5V for the ESP32 dev board                                                        |
+| Zero PCB, jumper wires, hookup wire, JST connectors | Prototype assembly and internal wiring                                                                      |
+
+---
+
+## Software
+
+| Tool / Library                      | Purpose                                    |
+| ----------------------------------- | ------------------------------------------ |
+| Arduino IDE / PlatformIO            | ESP32 C++ programming                      |
+| Adafruit_SSD1306 / U8g2             | OLED display graphics and UI rendering     |
+| ESP-NOW                             | Wireless communication between devices     |
+| ESP32 Internal DAC (`driver/dac.h`) | Audio signal generation for PAM8403        |
+| Rotary Encoder Library              | Reading rotary encoder movement            |
+| GPIO input handling                 | Button controls and debouncing             |
+| GitHub Markdown                     | Project documentation                      |
+| Notion                              | Live component tracker and BOM management  |
+
+---
+
+## Mechanical / CAD
+
+Mechanical design will focus on building a compact, clean handheld console-style enclosure.
+
+Current considerations:
+* 3D printed handheld body.
+* Screen cutout and recessed display area.
+* D-pad style 3D printed button caps.
+* Rotary encoder knob placement for thumb ergonomics.
+* Speaker holes and charging port cutouts.
+* Internal mounting points for the single-layer custom PCB and battery.
+
+---
+
+## Current Development Status
+
+| Task                                 | Status         |
+| ------------------------------------ | -------------- |
+| Game concept selected                | ✅ Completed    |
+| Component list prepared              | ✅ Completed    |
+| Live Notion BOM created              | ✅ Completed    |
+| V1 Hardware architecture & schematic | ✅ Completed    |
+| Game logic implementation            | 🔄 In progress |
+| ESP-NOW Host/Client lobby code       | 🔄 In progress |
+| V1 PCB Routing (Single-layer)        | 🔄 In progress |
+| Audio (DAC + PAM8403) testing        | ⏳ Pending      |
+| Enclosure design                     | ⏳ Pending      |
+| Final prototype assembly             | ⏳ Pending      |
+
+---
+# 8. Prototype Development
+
+## Version 1 (Breadboard & Core Logic)
+The first prototype phase focuses on getting a single handheld setup working on a breadboard with the ESP32 (WROOM), 1.3" OLED display, tactile buttons, rotary encoder, PAM8403 audio, vibration motor, and power system.
+* **Planned tests:** OLED initialization, input reading, UI menu rendering, audio output via internal DAC, and power stability.
+
+## Version 2 (Multiplayer Sync & PCB)
+The second prototype phase focuses on the custom single-layer PCB integration and the **Maze Blaze** game logic.
+* **Planned tests:** ESP-NOW communication, player movement syncing, dynamic maze rendering, and rotary-targeted bomb logic between two separate ESP32 units.
+
+## Final Prototype
+The final prototype will include 2 fully assembled handheld devices with playable multiplayer gameplay, sound, vibration, and clean 3D-printed enclosures.
+
+---
+
+# 9. Testing & Validation
+
+## Testing Plan
+
+| Test                   | Success Criteria                                                      |
+| ---------------------- | --------------------------------------------------------------------- |
+| Basic electronics test | ESP32, display, buttons, audio, vibration, and power work correctly   |
+| Display test           | 1.3" OLED display shows menu and game screen clearly without lag      |
+| Input test             | Tactile buttons and rotary encoder respond reliably and are debounced |
+| Audio test             | PAM8403 outputs clear game effects from the ESP32 DAC                 |
+| Vibration test         | Vibration motor triggers on specific game events (e.g., getting hit)  |
+| Power test             | Device runs from LiPo battery through TP4056 and MT3608 boost module  |
+| ESP-NOW test           | Both devices communicate wirelessly without a router/internet         |
+| Gameplay test          | Players can move, collect abilities, attack, and reach the center     |
+| Mechanical fit test    | PCB and electronics fit securely inside the 3D printed enclosure      |
+| Final demo test        | Prototype demonstrates *Maze Blaze* multiplayer loop successfully     |
+
+---
+
+## User Feedback
+
+| User        | Feedback    | Action Taken |
+| ----------- | ----------- | ------------ |
+| In progress | In progress | In progress  |
+
+---
+
+# 10. Innovation Assessment
+
+## Existing Solutions
+Existing solutions and reference categories being considered:
+* Phone-based multiplayer games
+* Board games
+* Electronic handheld toys
+* DIY ESP32 game consoles
+* Mini retro gaming devices
+* Classroom/game-based activity devices
+
+---
+
+## What Makes This Different?
+Brawl Box Mini is different from a normal phone game or simple board game because it combines:
+* A separate physical handheld device for each local player.
+* Physical, tactile controls utilizing a Rotary Encoder for in-game mechanics.
+* Robust local multiplayer sync (ESP-NOW) that bypasses traditional Wi-Fi routers.
+* Haptic physical feedback (vibration) and audio mapped to game events.
+* A fully student-designed single-layer PCB architecture.
+
+---
+
+## Innovation Score
+
+| Parameter       | Score / Note                                                                                |
+| --------------- | ------------------------------------------------------------------------------------------- |
+| Novelty         | Medium to High — depends on gameplay polish and physical interaction                        |
+| Technical Depth | High for the team level — ESP32, display, audio, power, vibration, communication, enclosure |
+| Feasibility     | Medium to High — buildable but requires careful integration on a single-layer board         |
+| Impact          | Medium — entertainment/education/activity product                                           |
+| Scalability     | Medium — same hardware can support more simple games later via firmware updates             |
+
+---
+
+# 11. Business & Deployment
+
+## Target Users
+* Students and children
+* Casual players
+* Schools / activity spaces
+* Maker events and technical showcases
+* Game-based learning workshops
+
+---
+
+## Estimated Cost
+
+Current estimated component cost for **2 devices (V1 Prototype)**:
+
+| Section                         | Approx. Cost |
+| ------------------------------- | -----------: |
+| Components used for 2 devices   |       ₹2,510 |
+| Shared / Bench components       |         ₹395 |
+| **Estimated Total** |    **₹2,905** |
+
+Detailed live component tracker:
+[View Brawl Box Notion BOM](https://groovy-target-365.notion.site/Brawl-Box-384fc8af23368001a3b7db0b6b2d9bc3?pvs=73)
+
+---
+
+## Market Opportunity
+Brawl Box Mini can potentially be positioned as:
+* A student-built gaming console prototype.
+* A physical multiplayer activity device.
+* A maker-event demonstration product.
+* An open-source hardware kit for learning embedded systems and game design.
+* A screen-free multiplayer play experience.
+
+---
+
+## Sustainability Considerations
+Current considerations:
+* Rechargeable battery-powered design.
+* Reusable enclosure and repairable modular internal components.
+* Firmware-based game expansion instead of building new hardware for every game.
+* Minimal material waste through iterative CAD and enclosure design.
+
+---
+
+# 12. Final Demonstration
+
+## Prototype Images
+*Pending prototype development.*
+
+---
+
+## Demonstration Video Link
+*Pending prototype demonstration.*
+
+---
+
+## GitHub Repository
+Current repository: Team Vega MakerMania 2026 repository.
+
+---
+
+## Presentation Link
+*Pending final presentation.*
+
+---
+
+# 13. Reflection
+
+## What Worked Well?
+
+**Week 1:**
+* Team completed the useless product activity.
+* BusyBuds was taken from an idea to a 3D printed product and advertisement.
+* We got hands-on exposure to CAD, laser cutting, 3D printing, documentation, and video-based pitching.
+
+**Week 2:**
+* Problem discovery started with Google Form responses and informal discussions.
+* Evaluated ideas based on user pain, feasibility, cost, and hardware scope using SCAMPER.
+* The team locked in a buildable hardware-first project direction (Brawl Box Mini).
+
+**Week 3:**
+* ESP-NOW multiplayer lobby and Host/Client room code logic successfully built.
+* Maze generation and single-player menu structure are actively in progress.
+* Single-layer bottom-routed PCB layout drafted in KiCad.
+
+---
+
+## What Failed / Challenges?
+
+**Week 1:**
+* The first 3D print attempt for BusyBuds needed improvement because the support setup was not planned well.
+* Documentation could have been updated more frequently during the activity.
+
+**Week 2:**
+* Early ideas were too vague or difficult to frame clearly (e.g., local-train bag holder shifted the load instead of reducing it).
+* High-impact ideas were too expensive, AI-heavy, or difficult to prototype within the current sprint.
+
+**Week 3:**
+* **Audio Interferences:** Realized that combining the ESP32's internal DAC with Wi-Fi (ESP-NOW) might cause static noise on the PAM8403 due to CPU interrupts. Breadboard testing is currently prioritized to debug this.
+* **PCB Optimization:** Initial random placement of tactile buttons on the PCB requires a complete rework to ensure proper thumb ergonomics before final track routing.
+
+---
+
+## Key Learnings
+
+* CAD and 3D printing require strict attention to dimensions, supports, orientation, and printability.
+* A product pitch depends not only on the object, but also on framing, storytelling, and presentation.
+* Hardware ideas need to be checked for cost, feasibility, mounting, durability, and user value.
+* Power architecture, communication, display protocols, and physical controls must be planned together as a unified system, not isolated modules.
+* Preserving our V2 double-layer TFT Emulator architecture separately allowed us to establish a clear future roadmap while keeping the current sprint focused and achievable.
+
+---
+
+## Next Steps
+
+* Finalize V1 PCB button placement for proper thumb ergonomics.
+* Conduct strict breadboard testing for the PAM8403 audio amplifier alongside ESP-NOW transmission.
+* Etch and solder the V1 single-layer PCBs.
+* Finalize single-player fallback games and *Maze Blaze* sync logic.
+* Design and fabricate the 3D enclosure in Fusion 360.
+* Document every major test, issue, and fix continuously on GitHub.
+
+---
+
+# 14. Final Deliverables Checklist
+
+* [x] Week 1 Training Completed
+* [x] Useless Product Activity Completed
+* [x] Google Form Responses Reviewed
+* [x] SCAMPER Activity Completed
+* [x] ESP32 Revision Activity Completed
+* [x] Project Direction Selected
+* [x] Component List Prepared
+* [x] Notion BOM Created
+* [x] Project Specs README Added
+* [x] V1 System Design & Schematic Complete
+* [ ] V1 PCB Routing Complete
+* [ ] ESP-NOW Multiplayer Logic Sync Complete
+* [ ] Prototype Assembled & Demonstrated
+* [ ] Testing Completed
+* [ ] Final Pitch Presentation Submitted
+
+---
+
+# MAKERMANIA FINAL PITCH
+
+Each team will present:
+
+1. Problem
+2. User Research
+3. Insights
+4. Solution
+5. Prototype Demo
+6. Innovation & Patentability
+7. Future Roadmap
+
+**Presentation Time:** 5 Minutes  
+**Q&A:** 3 Minutes
