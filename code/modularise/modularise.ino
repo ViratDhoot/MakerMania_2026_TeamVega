@@ -92,7 +92,7 @@ void drawMaze(uint8_t maze[MAZE_W][MAZE_H], int ix, int iy) {
 
   uint8_t cell, cx, cy;
 
-  for (int i = max((ix / DIM[0]) - 6, 0); i < min(MAZE_W, (ix / DIM[0]) + 6); i++) {
+  for (int i = max((ix / DIM[0]) - 6, 0); i < min(MAZE_W, (ix / DIM[0]) + 7); i++) {
     for (int j = max((iy / DIM[1]) - 7, 0); j < min(MAZE_H, (iy / DIM[1]) + 7); j++) {
       cell = maze[i][j];
       cx = (i * DIM[0]) + x;
@@ -123,7 +123,6 @@ void setup() {
   isStart = false;
   lastToggle = millis();
   net.begin();
-
   
   netInstance = &net;
 }
@@ -266,7 +265,8 @@ void loop() {
 
       case GAME:
         if (!isInit) {
-          //
+          net.lastBomb = millis();
+          isInit = true;
         }
         if (isHost) {
           net.hostHeartbeat();
@@ -319,8 +319,13 @@ void loop() {
         display.gfx().fillRect(0, 0, SCREEN_WIDTH, 12, SBLACK);
         display.drawText(15, 6, net.currFocus->id, 1, true);
         display.gfx().drawRoundRect(64, 2, 63, 8, 10, SWHITE);
-        // int barWidth = millis() - 
+        float barWidth = constrain(((millis() - net.lastBomb) * 59.0) / BOMB_TIMEOUT, 0.0, 59.0);
+        display.gfx().fillRoundRect(66, 4, barWidth, 4, 10, SWHITE);
         display.drawCenteredBitmap(bomb_bitmap, SCREEN_WIDTH/2 - 5, 6, 9, 9, SWHITE);
+        if ((digitalRead(ENC_SW) == LOW || digitalRead(JOY_SW) == LOW) && (millis() - lastToggle > 200)) {
+          lastToggle = millis();
+          net.lastBomb = millis();
+        }
         net.pollData();
         break;
     }

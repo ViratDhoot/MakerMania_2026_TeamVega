@@ -7,6 +7,7 @@
 
 #define NUM_PLAYERS 4
 #define PLAYER_TAG 3
+#define BOMB_TIMEOUT 4000.0
 
 extern ErrEvent errEvent;
 extern NetDisplayErr errBuffer;
@@ -86,6 +87,7 @@ public:
   
   Player _me;
   Player *currFocus;
+  unsigned long lastBomb;
 
 private:
   static void OnDataSent(const wifi_tx_info_t* tx_info, esp_now_send_status_t status);
