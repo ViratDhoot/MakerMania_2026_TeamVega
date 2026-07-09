@@ -53,6 +53,8 @@ struct Packet {
   } payload;
 };
 
+void IRAM_ATTR gameEncoderISR();
+
 class Networking {
 public:
   Networking();
@@ -61,6 +63,8 @@ public:
   NetMode getMode() { return _m; };
   const PlayerEntry getPlayer(int i) { return _players[i]; };
   void pollData();
+
+  void handleEncoder();
 
   // HOST CONTROLS
   void genBeacon(const uint32_t code);
@@ -81,6 +85,7 @@ public:
   const PlayerEntry& getPlayer(int i) const { return _players[i]; }
   
   Player _me;
+  Player *currFocus;
 
 private:
   static void OnDataSent(const wifi_tx_info_t* tx_info, esp_now_send_status_t status);
@@ -98,4 +103,8 @@ private:
   uint8_t _hostMac[6];
   static Networking* _instance;
   int lastBeat;
+  bool _prevSt;
+  int focusOff = 0;
 };
+
+extern Networking *netInstance;

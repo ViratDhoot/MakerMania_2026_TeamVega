@@ -61,6 +61,12 @@ void Display::drawButton(int x, int y, const String &text, int size, bool select
   drawButton(x, y, text.c_str(), size, selected);
 }
 
+void Display::drawCenteredBitmap(const uint8_t *bitmap, int x, int y, int width, int height, uint16_t color) {
+  int16_t _x = x - (width / 2);
+  int16_t _y = y - (height / 2);
+  _dsp.drawBitmap(_x, _y, bitmap, width, height, color);
+}
+
 void Display::drawErr(const ErrEvent &err) {
   if (err.type == NO_ERR) return;
   drawText(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, err.msg, 1, true);

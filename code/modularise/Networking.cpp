@@ -6,12 +6,15 @@ Packet Networking::_incoming;
 uint32_t Networking::_joinCode;
 Networking* Networking::_instance = nullptr;
 
+Networking *netInstance = nullptr;
+
 Networking::Networking() {
     _instance = this;
     lastBeat = millis();
     for (int i = 0; i < PLAYER_TAG; i++) {
       _me.id[i] = random(65, 91);
     }
+    currFocus = &_me;
 }
 
 void Networking::begin() {
@@ -39,9 +42,7 @@ void Networking::startGame() {
   };
 
   for (int i = 3; i > 0; i--) {
-    // Pick a random index from 0 to i (inclusive)
-    int j = random(0, i + 1);
-    
+    int j = random(0, i + 1);    
     int temp[2];
     memcpy(temp, posList[i], sizeof(temp));
     memcpy(posList[i], posList[j], sizeof(temp));
@@ -64,6 +65,11 @@ void Networking::startGame() {
     if (!player.isActive) continue;
     sendMessage(s, player.mac);
   }
+  attachInterrupt(
+    digitalPinToInterrupt(ENC_CLK),
+    gameEncoderISR,
+    CHANGE
+  );
 }
 
 void Networking::genBeacon(const uint32_t code) {
@@ -248,6 +254,11 @@ void Networking::OnDataRecv(const esp_now_recv_info_t* recv_info, const uint8_t*
             }
           }
         }
+        attachInterrupt(
+          digitalPinToInterrupt(ENC_CLK),
+          gameEncoderISR,
+          CHANGE
+        );
         _instance->setMode(IN_GAME);
         break;
     }
@@ -267,6 +278,27 @@ void Networking::OnDataRecv(const esp_now_recv_info_t* recv_info, const uint8_t*
         }
         break;
     }
+  }
+}
+
+void Networking::handleEncoder() {
+  bool currSt = digitalRead(ENC_CLK);
+  bool dtSt = digitalRead(ENC_DT);
+
+  if (currSt != _prevSt) {
+    if (dtSt != currSt)
+      focusOff = min(focusOff+1, (int)this->_playerCount);
+    else
+      focusOff = max(focusOff-1, 0);
+    _prevSt = currSt;
+  }
+  if (focusOff == 0) currFocus = &this->_me;
+  else currFocus = &this->_players[focusOff-1].status;
+}
+
+void IRAM_ATTR gameEncoderISR() {
+  if (netInstance) {
+    netInstance->handleEncoder();
   }
 }
 
