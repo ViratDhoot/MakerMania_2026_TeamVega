@@ -14,16 +14,16 @@ TextInput::TextInput(int x, int y, int size, int max_length, bool num)
 {
   for (int i = 0; i < _maxLen; i++)
     text += (_isNum)?'0':'A';
+  int16_t xPos, yPos;
+  uint16_t w, h;
+  display.gfx().setTextSize(_size);
+  display.gfx().getTextBounds(text, 0, 0, &xPos, &yPos, &w, &h);
+  _x -= w / 2;
+  _y -= h / 2;
 };
 
 void TextInput::begin() {
   activeInput = this;
-  int16_t x, y;
-  uint16_t w, h;
-  display.gfx().setTextSize(_size);
-  display.gfx().getTextBounds(text, 0, 0, &x, &y, &w, &h);
-  _x -= w / 2;
-  _y -= h / 2;
   attachInterrupt(
     digitalPinToInterrupt(ENC_CLK),
     encoderISR,

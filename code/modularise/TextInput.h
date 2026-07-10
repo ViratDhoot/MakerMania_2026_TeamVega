@@ -29,7 +29,7 @@ public:
   void begin();
   void IRAM_ATTR handleEncoder();
   void update();
-  void active() { activeInput = this; };
+  void active() { begin(); };
   void end();
   void draw();
   String getText();
