@@ -25,7 +25,7 @@
 #define JOY_X 32
 #define JOY_Y 33
 
-enum NetMode { IDLE, JOINING, WAITING, IN_GAME };
+enum NetMode { IDLE, JOINING, WAITING, IN_GAME, LEADERBOARD };
 enum NetDisplay { NO_ERR, MESSAGE, ANIMATE_BOMB };
 
 struct NetEvent {

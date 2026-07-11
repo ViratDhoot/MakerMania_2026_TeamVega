@@ -13,7 +13,8 @@ enum Screen {
   INITGAME,
   LOBBY,
   WAIT_ROOM,
-  GAME
+  GAME, 
+  PODIUM
 };
 
 Screen currFrame;
@@ -176,7 +177,7 @@ void loop() {
           if (!isInit) {
             party = random(0, 99999);
             net.genBeacon(party);
-            net._playerCount = 0;
+            net.resetData();
             net.setMode(JOINING);
             isInit = true;
           }
@@ -216,7 +217,7 @@ void loop() {
         } else {
           if (!isInit) {
             codeInput.begin();
-            net._playerCount = 0;
+            net.resetData();
             isInit = true;
           }
           display.drawText(SCREEN_WIDTH / 2, 10, "Enter Code:", 1, true);
@@ -266,7 +267,7 @@ void loop() {
         }
         break;
 
-      case GAME:
+      case GAME: {
         if (!isInit) {
           net.lastBomb = millis();
           isInit = true;
@@ -397,7 +398,7 @@ void loop() {
         if (memcmp(net.currFocus->id, net._me.id, PLAYER_TAG+1) == 0) {
           if (net.isJammed) {
             if (millis() - net.jammed > JAM_TIMEOUT) net.isJammed = false;
-            display.drawButton(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, "CONTROLS\nJAMMED", 1, true);
+            display.drawButton(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, "CONTROLS JAMMED", 1, true);
           } else {
             net._me.x += joyX * speed;
             net._me.y += joyY * speed;
@@ -433,12 +434,62 @@ void loop() {
         display.gfx().drawLine(0, 12, SCREEN_WIDTH, 12, SWHITE);
         display.drawText(15, 6, net.currFocus->id, 1, true);
         display.gfx().drawRoundRect(64, 2, 63, 8, 10, SWHITE);
-        float barWidth = constrain(((millis() - net.lastBomb) * 59.0) / BOMB_TIMEOUT, 0.0, 59.0);
-        display.gfx().fillRoundRect(66, 4, barWidth, 4, 10, SWHITE);
+        float barLoad = constrain(((millis() - net.lastBomb) * 59.0) / BOMB_TIMEOUT, 0.0, 59.0);
+        display.gfx().fillRoundRect(66, 4, barLoad, 4, 10, SWHITE);
         display.drawCenteredBitmap(bomb_bitmap, SCREEN_WIDTH/2 - 5, 6, 9, 9, SWHITE);
 
         net.pollData();
+
+        if (
+          ((net._me.x/DIM[0]) >= 22 && (net._me.x/DIM[0]) <= 26) && 
+          (net._me.y/DIM[1]) >= 22 && (net._me.y/DIM[1]) <= 26
+        ) {
+          net.sendWon(); // Add a spectate mode later on
+        }
+        if ((digitalRead(ENC_SW) == LOW || digitalRead(JOY_SW) == LOW) && (millis() - lastToggle > 200)) {
+          Serial.println(net._me.x);
+          Serial.println(net._me.y);
+        }
+
+        if (net.getMode() == LEADERBOARD) {
+          currFrame = PODIUM;
+        }
+
         break;
+      }
+      case PODIUM: {
+        display.drawText(SCREEN_WIDTH / 2, 8, "LEADERBOARD", 1, true);
+
+        int maxHeight = 10;
+        int barWidth = SCREEN_WIDTH / NUM_PLAYERS - 10;
+        int baseY = SCREEN_HEIGHT - 20;
+
+        for (int rank = 0; rank < NUM_PLAYERS; rank++) {
+          const Player* winner = net.getWinner(rank);
+          
+          int podiumX = (SCREEN_WIDTH * (2 * rank + 1)) / (2 * NUM_PLAYERS);
+          int barHeight = 12 + ((maxHeight * (NUM_PLAYERS - rank)) / NUM_PLAYERS);
+          int barTop = baseY - barHeight;
+          
+          display.gfx().drawRect(podiumX - barWidth / 2, barTop, barWidth, barHeight, SWHITE);
+          display.drawText(podiumX, barTop + barHeight / 2, String(rank + 1), 1, true);
+          if (winner == nullptr) continue;
+          display.drawText(podiumX, barTop - 6, winner->id, 1, true);
+        }
+        
+        if (isHost) {
+          display.drawButton(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10, "BACK TO LOBBY", 1, true);
+
+          if ((digitalRead(ENC_SW) == LOW || digitalRead(JOY_SW) == LOW) && (millis() - lastToggle > 200)) {
+            lastToggle = millis();
+            net.playAgain();
+          }
+        }
+
+        if (net.getMode() == WAITING) currFrame = WAIT_ROOM;
+        if (net.getMode() == JOINING) currFrame = LOBBY;
+        break;
+      }
     }
   }
   display.show();

@@ -29,7 +29,7 @@ enum PacketType {
   POLLING_DATA, 
   BOMB, 
   WON, 
-  END
+  PLAYAGAIN
 };
 
 struct Player {
@@ -67,8 +67,10 @@ public:
   void setMode(NetMode mode) { _m = mode; };
   NetMode getMode() { return _m; };
   const PlayerEntry getPlayer(int i) { return _players[i]; };
+  const Player* getWinner(int i) { return (i <= _playerCount+1)?&_winners[i]:nullptr;};
   void pollData();
   void resetData();
+  void playAgain();
 
   void handleEncoder();
 
@@ -113,12 +115,13 @@ private:
   NetMode _m;
   static uint32_t _joinCode;
   PlayerEntry _players[NUM_PLAYERS-1];
-  PlayerEntry winners[NUM_PLAYERS-1];
+  Player _winners[NUM_PLAYERS];
+  uint8_t _winCount;
   uint8_t _hostMac[6];
   static Networking* _instance;
-  int lastBeat;
+  int _lastBeat;
   bool _prevSt;
-  int focusOff = 0;
+  int _focusOff = 0;
 };
 
 extern Networking *netInstance;

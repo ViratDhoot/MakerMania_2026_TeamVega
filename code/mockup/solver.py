@@ -217,6 +217,7 @@ while True:
 
             cx = int(mx // DIM[0])
             cy = int(my // DIM[1])
+            print(cx, cy)
 
             if start_cell is None:
                 start_cell = (cx, cy)

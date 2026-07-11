@@ -11,11 +11,12 @@ Networking *netInstance = nullptr;
 
 Networking::Networking() {
     _instance = this;
-    lastBeat = millis();
+    _lastBeat = millis();
     for (int i = 0; i < PLAYER_TAG; i++) {
       _me.id[i] = random(65, 91);
     }
     currFocus = &_me;
+    _winCount = 0;
 }
 
 void Networking::begin() {
@@ -83,6 +84,27 @@ void Networking::sendBeacon() {
   sendMessage(_b, broadcastAddr);
 }
 
+void Networking::playAgain() {
+  _winCount = 0;
+  Packet pa;
+  pa.type = PLAYAGAIN;
+  for (auto &player : _players) {
+    sendMessage(pa, player.mac);
+  }
+  _m = JOINING;
+  for (auto &player : _instance->_players)
+    player.lastBeat = millis();
+  hostHeartbeat();
+}
+
+void Networking::resetData() {
+  _playerCount = 0;
+  _winCount = 0;
+  for (auto &player : _players) {
+    player.isActive = false;
+  }
+}
+
 void Networking::checkHeartbeat() {
   for (auto &player : _players) {
     if (!player.isActive) continue;
@@ -115,9 +137,9 @@ void Networking::removePlayer(const uint8_t mac[6]) {
 void Networking::heartbeat() {
   Packet h;
   h.type = HEARTBEAT;
-  if (millis() - lastBeat > 200) {
+  if (millis() - _lastBeat > 200) {
     sendMessage(h, _hostMac);
-    lastBeat = millis();
+    _lastBeat = millis();
   }
 }
 
@@ -126,9 +148,9 @@ void Networking::hostHeartbeat() {
   h.type = HEARTBEAT;
   for (auto &player : _players) {
     if (!player.isActive) continue;
-    if (millis() - lastBeat > 200) {
+    if (millis() - _lastBeat > 200) {
       sendMessage(h, player.mac); 
-      lastBeat = millis();
+      _lastBeat = millis();
     }
   }
 }
@@ -147,7 +169,40 @@ void Networking::sendWon() {
   win.type = WON;
   win.payload.status = _me;
   for (auto &player : _players) {
-    sendMessage(win, player);
+    if (!player.isActive) continue;
+    sendMessage(win, player.mac);
+  }
+  bool isRec = false;
+  for (int i = 0; i < _instance->_winCount; i++) {
+    if (strcmp(_instance->_winners[i].id, _me.id) == 0) {
+      isRec = true;
+      break;
+    }
+  }
+  
+  if (!isRec)
+    memcpy(
+      &_instance->_winners[_instance->_winCount++], 
+      &_me, 
+      sizeof(_incoming.payload.status)
+    );
+
+  if (_instance->_winCount == _instance->_playerCount) {
+    for (auto &player : _instance->_players) {
+      if (!player.isActive) continue;
+      isRec = false;
+      for (auto &winner : _instance->_winners) {
+        if (strcmp(winner.id, player.status.id) == 0) {
+          isRec = true;
+          break;
+        }
+      }
+      if (!isRec) {
+        memcpy(&_instance->_winners[_instance->_winCount++], &player.status, sizeof(player.status));
+        break;
+      }
+    }
+    _instance->_m = LEADERBOARD;
   }
 }
 
@@ -293,6 +348,49 @@ void Networking::OnDataRecv(const esp_now_recv_info_t* recv_info, const uint8_t*
         displayEvent.shownAt = millis();
         displayEvent.duration = 400;
         break;
+      
+      case WON:
+        bool isRec = false;
+        for (int i = 0; i < _instance->_winCount; i++) {
+          if (strcmp(_instance->_winners[i].id, _incoming.payload.status.id) == 0) {
+            isRec = true;
+            break;
+          }
+        }
+        
+        if (!isRec)
+          memcpy(&_instance->_winners[_instance->_winCount++], &_incoming.payload.status, sizeof(_incoming.payload.status));
+        
+        if (_instance->_winCount == _instance->_playerCount) {
+          for (auto &player : _instance->_players) {
+            if (!player.isActive) continue;
+            isRec = false;
+            for (auto &winner : _instance->_winners) {
+              if (strcmp(winner.id, player.status.id) == 0) {
+                isRec = true;
+                break;
+              }
+            }
+            if (!isRec) {
+              memcpy(&_instance->_winners[_instance->_winCount++], &player.status, sizeof(player.status));
+              break;
+            }
+          }
+          if (isRec)
+            memcpy(&_instance->_winners[_instance->_winCount++], &_instance->_me, sizeof(_me));
+          _instance->_m = LEADERBOARD;
+        }
+        break;
+    }
+  } else if (_instance->_m == LEADERBOARD) {
+    switch(_incoming.type) {
+      case PLAYAGAIN:
+        _instance->_m = WAITING;
+        _instance->_winCount = 0;
+        for (auto &player : _instance->_players)
+          player.lastBeat = millis();
+        _instance->heartbeat();
+        break;
     }
   }
 }
@@ -304,15 +402,15 @@ void Networking::handleEncoder() {
   if ((millis() - lastBomb) > BOMB_TIMEOUT) { 
     if (currSt != _prevSt) {
       if (dtSt != currSt)
-        focusOff = min(focusOff+1, (int)this->_playerCount);
+        _focusOff = min(_focusOff+1, (int)this->_playerCount);
       else
-        focusOff = max(focusOff-1, 0);
+        _focusOff = max(_focusOff-1, 0);
       _prevSt = currSt;
     }
   }
-  if (focusOff == 0) currFocus = &this->_me;
+  if (_focusOff == 0) currFocus = &this->_me;
   else {
-    currFocus = &this->_players[focusOff-1].status;
+    currFocus = &this->_players[_focusOff-1].status;
     crosshair_x = (int)(currFocus->x / DIM[0]);
     crosshair_y = (int)(currFocus->y / DIM[1]);
   }
@@ -346,6 +444,7 @@ void Networking::sendBomb(char enemyId[PLAYER_TAG + 1]) {
       break;
     }
   }
+  _focusOff = 0;
 }
 
 void Networking::sendJoinRequest(const uint8_t mac[6]) {
