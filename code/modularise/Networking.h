@@ -8,10 +8,10 @@
 #define NUM_PLAYERS 4
 #define PLAYER_TAG 3
 #define BOMB_TIMEOUT 4000.0
+#define JAM_TIMEOUT 2000
 
-extern ErrEvent errEvent;
-extern NetDisplayErr errBuffer;
-extern String netErrMsg;
+extern NetEvent errEvent;
+extern NetEvent displayEvent;
 
 enum PacketType {
   BEACON,        // BROADCASTS PARTY INVITE
@@ -26,7 +26,10 @@ enum PacketType {
   PLAYER_REMOVE, // UPDATING OTHER PLAYERS ABOUT DISCONNECTS
 
   START, 
-  POLLING_DATA
+  POLLING_DATA, 
+  BOMB, 
+  WON, 
+  END
 };
 
 struct Player {
@@ -51,6 +54,7 @@ struct Packet {
     PlayerEntry playerInit[NUM_PLAYERS];
     char raw[26];
     uint8_t mac[6];
+    uint8_t bombCoords[2];
   } payload;
 };
 
@@ -64,6 +68,7 @@ public:
   NetMode getMode() { return _m; };
   const PlayerEntry getPlayer(int i) { return _players[i]; };
   void pollData();
+  void resetData();
 
   void handleEncoder();
 
@@ -82,12 +87,19 @@ public:
   void sendJoinRequest(const uint8_t mac[6]);
   void heartbeat();
   void checkHostHeartbeat();
+  void sendBomb(char enemyId[PLAYER_TAG + 1]);
+  void sendWon();
 
   const PlayerEntry& getPlayer(int i) const { return _players[i]; }
   
   Player _me;
   Player *currFocus;
   unsigned long lastBomb;
+  int crosshair_x;
+  int crosshair_y;
+  unsigned long jammed;
+  bool isJammed;
+  uint8_t _playerCount = 0;
 
 private:
   static void OnDataSent(const wifi_tx_info_t* tx_info, esp_now_send_status_t status);
@@ -101,7 +113,7 @@ private:
   NetMode _m;
   static uint32_t _joinCode;
   PlayerEntry _players[NUM_PLAYERS-1];
-  uint8_t _playerCount = 0;
+  PlayerEntry winners[NUM_PLAYERS-1];
   uint8_t _hostMac[6];
   static Networking* _instance;
   int lastBeat;

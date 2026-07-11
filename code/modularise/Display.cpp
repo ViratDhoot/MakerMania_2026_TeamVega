@@ -67,9 +67,9 @@ void Display::drawCenteredBitmap(const uint8_t *bitmap, int x, int y, int width,
   _dsp.drawBitmap(_x, _y, bitmap, width, height, color);
 }
 
-void Display::drawErr(const ErrEvent &err) {
+void Display::drawErr(const NetEvent &err) {
   if (err.type == NO_ERR) return;
-  drawText(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, err.msg, 1, true);
+  drawText(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, err.info.msg, 1, true);
 }
 
 Display display;

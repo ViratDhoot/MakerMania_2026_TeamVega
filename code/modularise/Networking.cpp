@@ -1,6 +1,7 @@
 #include "Networking.h"
 
-ErrEvent errEvent;
+NetEvent errEvent;
+NetEvent displayEvent;
 
 Packet Networking::_incoming;
 uint32_t Networking::_joinCode;
@@ -125,7 +126,6 @@ void Networking::hostHeartbeat() {
   h.type = HEARTBEAT;
   for (auto &player : _players) {
     if (!player.isActive) continue;
-    Serial.println("SENDING HEARTBEAT");
     if (millis() - lastBeat > 200) {
       sendMessage(h, player.mac); 
       lastBeat = millis();
@@ -140,6 +140,15 @@ void Networking::sendMessage(const Packet &pkt, const uint8_t mac[6]) {
   if (!esp_now_is_peer_exist(mac))
     esp_now_add_peer(&_peerInfo);
   esp_err_t result = esp_now_send(mac, (const uint8_t *)&pkt, sizeof(pkt));
+}
+
+void Networking::sendWon() {
+  Packet win;
+  win.type = WON;
+  win.payload.status = _me;
+  for (auto &player : _players) {
+    sendMessage(win, player);
+  }
 }
 
 void Networking::OnDataSent(const wifi_tx_info_t* tx_info, esp_now_send_status_t status) {
@@ -207,7 +216,6 @@ void Networking::OnDataRecv(const esp_now_recv_info_t* recv_info, const uint8_t*
   } else if (_instance->_m == WAITING) {
     switch(_incoming.type) {
       case HEARTBEAT:
-        Serial.println("RECIEVED HEARTBEAT FROM HOST");
         for (auto &player : _instance->_players) {
           if (memcmp(player.mac, recv_info->src_addr, 6) == 0)
             player.lastBeat = millis();
@@ -235,6 +243,7 @@ void Networking::OnDataRecv(const esp_now_recv_info_t* recv_info, const uint8_t*
         break;
       
       case JOIN_REJECT:
+        // TODO ADD ERR SCREEN
         Serial.println("Couldn't Join");
         break;
 
@@ -277,6 +286,13 @@ void Networking::OnDataRecv(const esp_now_recv_info_t* recv_info, const uint8_t*
             player.status = _incoming.payload.status;
         }
         break;
+
+      case BOMB:
+        displayEvent.type = ANIMATE_BOMB;
+        memcpy(displayEvent.info.bombCoords, _incoming.payload.bombCoords, sizeof(displayEvent.info.bombCoords));
+        displayEvent.shownAt = millis();
+        displayEvent.duration = 400;
+        break;
     }
   }
 }
@@ -285,15 +301,21 @@ void Networking::handleEncoder() {
   bool currSt = digitalRead(ENC_CLK);
   bool dtSt = digitalRead(ENC_DT);
 
-  if (currSt != _prevSt) {
-    if (dtSt != currSt)
-      focusOff = min(focusOff+1, (int)this->_playerCount);
-    else
-      focusOff = max(focusOff-1, 0);
-    _prevSt = currSt;
+  if ((millis() - lastBomb) > BOMB_TIMEOUT) { 
+    if (currSt != _prevSt) {
+      if (dtSt != currSt)
+        focusOff = min(focusOff+1, (int)this->_playerCount);
+      else
+        focusOff = max(focusOff-1, 0);
+      _prevSt = currSt;
+    }
   }
   if (focusOff == 0) currFocus = &this->_me;
-  else currFocus = &this->_players[focusOff-1].status;
+  else {
+    currFocus = &this->_players[focusOff-1].status;
+    crosshair_x = (int)(currFocus->x / DIM[0]);
+    crosshair_y = (int)(currFocus->y / DIM[1]);
+  }
 }
 
 void IRAM_ATTR gameEncoderISR() {
@@ -305,10 +327,24 @@ void IRAM_ATTR gameEncoderISR() {
 void Networking::pollData() {
   Packet d;
   d.type = POLLING_DATA;
-  d.payload.status = _me;  
+  d.payload.status = _me;
   for (auto &player : _players) {
     if (!player.isActive) continue;
     sendMessage(d, player.mac);
+  }
+}
+
+void Networking::sendBomb(char enemyId[PLAYER_TAG + 1]) {
+  Packet b;
+  b.type = BOMB;
+  b.payload.bombCoords[0] = crosshair_x;
+  b.payload.bombCoords[1] = crosshair_y;
+  for (auto &player : _players) {
+    if (!player.isActive) continue;
+    if (strcmp(player.status.id, enemyId) == 0) {
+      sendMessage(b, player.mac);
+      break;
+    }
   }
 }
 
@@ -333,7 +369,6 @@ void Networking::rejectJoinRequest(const uint8_t clientMac[6]) {
 }
 
 void Networking::addPlayer(const PlayerEntry p) {
-  Serial.println(p.status.id);
   for (int i = 0; i < NUM_PLAYERS-1; i++) {
     if ((memcmp(_players[i].mac, p.mac, 6) == 0) && _players[i].isActive)
       return;

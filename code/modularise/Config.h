@@ -26,11 +26,14 @@
 #define JOY_Y 33
 
 enum NetMode { IDLE, JOINING, WAITING, IN_GAME };
-enum NetDisplayErr { NO_ERR, MESSAGE };
+enum NetDisplay { NO_ERR, MESSAGE, ANIMATE_BOMB };
 
-struct ErrEvent {
-  NetDisplayErr type = NO_ERR;
-  String msg = "";
+struct NetEvent {
+  NetDisplay type = NO_ERR;
+  union {
+    char msg[256];
+    uint8_t bombCoords[2];
+  } info;
   unsigned long shownAt = 0;
   unsigned long duration = 2000;
 };

@@ -71,7 +71,7 @@ struct Player {
 };
 
 Player others[8];
-int playerCount = 0;
+int _playerCount = 0;
 
 Player myData = { 0, 0 };
 

@@ -24,6 +24,7 @@ bool isHost;
 bool onJoin;
 bool isStart;
 int lastToggle = millis();
+float arrow[2];
 uint32_t party;
 TextInput codeInput(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 2, 5, true);
 Packet pkt;
@@ -92,7 +93,7 @@ void drawMaze(uint8_t maze[MAZE_W][MAZE_H], int ix, int iy) {
 
   uint8_t cell, cx, cy;
 
-  for (int i = max((ix / DIM[0]) - 6, 0); i < min(MAZE_W, (ix / DIM[0]) + 7); i++) {
+  for (int i = max((ix / DIM[0]) - 7, 0); i < min(MAZE_W, (ix / DIM[0]) + 7); i++) {
     for (int j = max((iy / DIM[1]) - 7, 0); j < min(MAZE_H, (iy / DIM[1]) + 7); j++) {
       cell = maze[i][j];
       cx = (i * DIM[0]) + x;
@@ -175,6 +176,7 @@ void loop() {
           if (!isInit) {
             party = random(0, 99999);
             net.genBeacon(party);
+            net._playerCount = 0;
             net.setMode(JOINING);
             isInit = true;
           }
@@ -214,6 +216,7 @@ void loop() {
         } else {
           if (!isInit) {
             codeInput.begin();
+            net._playerCount = 0;
             isInit = true;
           }
           display.drawText(SCREEN_WIDTH / 2, 10, "Enter Code:", 1, true);
@@ -276,13 +279,6 @@ void loop() {
           net.checkHostHeartbeat();
         }
         
-        if (abs(joyX) < 0.15f) joyX = 0;
-        
-        if (abs(joyY) < 0.15f) joyY = 0;
-        
-        net._me.x += joyX * speed;
-        net._me.y += joyY * speed;
-        
         int ix = int(net._me.x / DIM[0]);
         int iy = int(net._me.y / DIM[1]);
         
@@ -299,33 +295,148 @@ void loop() {
         if (((cell & BOTTOM) == 0) && ((net._me.y + size) > ((iy + 1) * DIM[1] - 1)))
         net._me.y = (iy + 1) * DIM[1] - size - 1;
         
+        // Drawing maze
         drawMaze(maze, net.currFocus->x, net.currFocus->y);
+        
+        // drawing players
         display.gfx().fillCircle(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, size, SWHITE);
         int dx = net.currFocus->x - SCREEN_WIDTH / 2;
         int dy = net.currFocus->y - SCREEN_HEIGHT / 2;
-        if (memcmp(&net._me, &net.currFocus, sizeof(net.currFocus)) != 0) {
-          float drawX = net._me.x - dx;
-          float drawY = net._me.y - dy;
-          display.gfx().fillCircle(drawX, drawY, size, SWHITE);
+        if (memcmp(net.currFocus->id, net._me.id, PLAYER_TAG+1) != 0) {
+          display.gfx().fillCircle(
+            net._me.x - dx, 
+            net._me.y - dy, 
+            size, 
+            SWHITE
+          );
         }
         for (int i = 0; i < NUM_PLAYERS - 1; i++) {
           const PlayerEntry player = net.getPlayer(i);
           if (!player.isActive) continue;
-          if (memcmp(&player, &net.currFocus, sizeof(net.currFocus)) == 0) continue;
-          float drawX = player.status.x - dx;
-          float drawY = player.status.y - dy;
-          display.gfx().fillCircle(drawX, drawY, size, SWHITE);
+          if (memcmp(net.currFocus->id, player.status.id, PLAYER_TAG+1) == 0) continue;
+          display.gfx().fillCircle(
+            player.status.x - dx, 
+            player.status.y - dy, 
+            size, 
+            SWHITE
+          );
         }
+
+        arrow[0] = MAZE_W / 2 - net.currFocus->x / DIM[0];
+        arrow[1] = MAZE_H / 2 - net.currFocus->y / DIM[1];
+        float mag = sqrt(arrow[0] * arrow[0] + arrow[1] * arrow[1]);
+
+        if (mag > 3) {
+          arrow[0] /= mag;
+          arrow[1] /= mag;
+
+          const int topMargin = 13 + 6;  // panel height + a little breathing room for the triangle itself
+          const int bottomMargin = 6;
+          const int sideMargin = 6;
+
+          int cx = SCREEN_WIDTH / 2 + arrow[0] * (SCREEN_WIDTH / 2 - sideMargin);
+          int cy = (SCREEN_HEIGHT + topMargin) / 2 + arrow[1] * ((SCREEN_HEIGHT - topMargin) / 2 - bottomMargin);
+
+          const int len = 3;
+          const int wing = 3;
+
+          int tipX  = cx + arrow[0] * len;
+          int tipY  = cy + arrow[1] * len;
+          int backX = cx - arrow[0] * len;
+          int backY = cy - arrow[1] * len;
+
+          int rightX = backX - arrow[1] * wing;
+          int rightY = backY + arrow[0] * wing;
+          int leftX  = backX + arrow[1] * wing;
+          int leftY  = backY - arrow[0] * wing;
+
+          display.gfx().fillTriangle(tipX, tipY, rightX, rightY, leftX, leftY, SWHITE);
+        }
+
+        // Drawing crosshair
+        if (memcmp(net.currFocus->id, net._me.id, PLAYER_TAG+1) != 0) {
+          int cX = net.crosshair_x * DIM[0] - dx;
+          int cY = net.crosshair_y * DIM[1] - dy;
+          display.gfx().drawLine(cX + 2, cY + 2, cX + 3, cY + 2, SWHITE);
+          display.gfx().drawLine(cX + 2, cY + 2, cX + 2, cY + 3, SWHITE);
+          display.gfx().drawLine(cX + DIM[0] - 2, cY + 2, cX + DIM[0] - 3, cY + 2, SWHITE);
+          display.gfx().drawLine(cX + DIM[0] - 2, cY + 2, cX + DIM[0] - 2, cY + 3, SWHITE);
+          display.gfx().drawLine(cX + 2, cY + DIM[1] - 2, cX + 3, cY + DIM[1] - 2, SWHITE);
+          display.gfx().drawLine(cX + 2, cY + DIM[1] - 2, cX + 2, cY + DIM[1] - 3, SWHITE);
+          display.gfx().drawLine(cX + DIM[0] - 2, cY + DIM[1] - 2, cX + DIM[0] - 3, cY + DIM[1] - 2, SWHITE);
+          display.gfx().drawLine(cX + DIM[0] - 2, cY + DIM[1] - 2, cX + DIM[0] - 2, cY + DIM[1] - 3, SWHITE);
+        }
+
+        if (displayEvent.type == ANIMATE_BOMB) {
+          if ((millis() - displayEvent.shownAt) >= displayEvent.duration) displayEvent.type = NO_ERR;
+          int frame = (int)((millis() - displayEvent.shownAt) / 100);
+          frame = constrain(frame, 0, EXPL_FRAMES - 1);
+          if (frame >= 3) {
+            if (
+              !net.isJammed && 
+              (abs(ix - displayEvent.info.bombCoords[0]) + abs(iy - displayEvent.info.bombCoords[1]) <= 2)
+            ) {
+              net.jammed = millis();
+              net.isJammed = true;
+            }
+          }
+          display.drawCenteredBitmap(
+            expl_frames_bitmap[frame], 
+            displayEvent.info.bombCoords[0] * DIM[0] + DIM[0] / 2.0 - dx, 
+            displayEvent.info.bombCoords[1] * DIM[1] + DIM[1] / 2.0 - dy, 
+            BOMB_WIDTH, 
+            BOMB_HEIGHT, 
+            SWHITE
+          );
+        }
+
+        if (abs(joyX) < 0.15f) joyX = 0;
+        
+        if (abs(joyY) < 0.15f) joyY = 0;
+        
+        if (memcmp(net.currFocus->id, net._me.id, PLAYER_TAG+1) == 0) {
+          if (net.isJammed) {
+            if (millis() - net.jammed > JAM_TIMEOUT) net.isJammed = false;
+            display.drawButton(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, "CONTROLS\nJAMMED", 1, true);
+          } else {
+            net._me.x += joyX * speed;
+            net._me.y += joyY * speed;
+          }
+        } else {
+          
+          if (joyX > 0.6 && (millis() - lastToggle > 200)) {
+            net.crosshair_x++;
+            lastToggle = millis();
+          } else if (joyX < -0.6 && (millis() - lastToggle > 200)) {
+            net.crosshair_x--;
+            lastToggle = millis();
+          };
+          net.crosshair_x = constrain(net.crosshair_x, 0, MAZE_W-1);
+          if (joyY > 0.6 && (millis() - lastToggle > 200)) {
+            net.crosshair_y++;
+            lastToggle = millis();
+          } else if (joyY < -0.6 && (millis() - lastToggle > 200)) {
+            net.crosshair_y--;
+            lastToggle = millis();
+          };
+          net.crosshair_y = constrain(net.crosshair_y, 0, MAZE_W-1);
+          if ((digitalRead(ENC_SW) == LOW || digitalRead(JOY_SW) == LOW) && (millis() - lastToggle > 200)) {
+            net.sendBomb(net.currFocus->id);
+            net.lastBomb = millis();
+            net.currFocus = &net._me;
+            lastToggle = millis();
+          }
+        }
+
+        // Drawing INFO Palette
         display.gfx().fillRect(0, 0, SCREEN_WIDTH, 12, SBLACK);
+        display.gfx().drawLine(0, 12, SCREEN_WIDTH, 12, SWHITE);
         display.drawText(15, 6, net.currFocus->id, 1, true);
         display.gfx().drawRoundRect(64, 2, 63, 8, 10, SWHITE);
         float barWidth = constrain(((millis() - net.lastBomb) * 59.0) / BOMB_TIMEOUT, 0.0, 59.0);
         display.gfx().fillRoundRect(66, 4, barWidth, 4, 10, SWHITE);
         display.drawCenteredBitmap(bomb_bitmap, SCREEN_WIDTH/2 - 5, 6, 9, 9, SWHITE);
-        if ((digitalRead(ENC_SW) == LOW || digitalRead(JOY_SW) == LOW) && (millis() - lastToggle > 200)) {
-          lastToggle = millis();
-          net.lastBomb = millis();
-        }
+
         net.pollData();
         break;
     }

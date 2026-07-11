@@ -41,7 +41,7 @@ public:
   void drawButton(int x, int y, const char *text, int size, bool selected);
   void drawButton(int x, int y, const String &text, int size, bool selected);
   void drawCenteredBitmap(const uint8_t *bitmap, int x, int y, int width, int height, uint16_t color);
-  void drawErr(const ErrEvent &err);
+  void drawErr(const NetEvent &err);
   DisplayDriver& gfx() { return _dsp; };
 
 private:

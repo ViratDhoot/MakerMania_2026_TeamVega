@@ -138,6 +138,8 @@ const unsigned char expl_4 [] PROGMEM = {
 };
 
 #define EXPL_FRAMES 4
+#define BOMB_WIDTH 50
+#define BOMB_HEIGHT 50
 const unsigned char* expl_frames_bitmap[4] = {
 	expl_1,
 	expl_2,
