@@ -259,6 +259,14 @@ void loop() {
           else
             display.drawText((i + 1) * 28 + 22, 30, String(net.getPlayer(i).status.id), 1, true);
         }
+        display.drawButton(SCREEN_WIDTH / 2, 55, "LEAVE", 1, isStart);
+        if ((digitalRead(ENC_SW) == LOW || digitalRead(JOY_SW) == LOW) && (millis() - lastToggle > 200)) {
+          lastToggle = millis();
+          currFrame = INITGAME;
+          isInit = false;
+          isHost = false;
+          net.setMode(IDLE);
+        }
         net.heartbeat();
         net.checkHostHeartbeat();
         if (net.getMode() == IN_GAME) {
@@ -355,7 +363,7 @@ void loop() {
         }
 
         // Drawing crosshair
-        if (memcmp(net.currFocus->id, net._me.id, PLAYER_TAG+1) != 0) {
+        if (!net.hasWon && memcmp(net.currFocus->id, net._me.id, PLAYER_TAG+1) != 0) {
           int cX = net.crosshair_x * DIM[0] - dx;
           int cY = net.crosshair_y * DIM[1] - dy;
           display.gfx().drawLine(cX + 2, cY + 2, cX + 3, cY + 2, SWHITE);
@@ -421,7 +429,7 @@ void loop() {
             lastToggle = millis();
           };
           net.crosshair_y = constrain(net.crosshair_y, 0, MAZE_W-1);
-          if ((digitalRead(ENC_SW) == LOW || digitalRead(JOY_SW) == LOW) && (millis() - lastToggle > 200)) {
+          if (!net.hasWon && (digitalRead(ENC_SW) == LOW || digitalRead(JOY_SW) == LOW) && (millis() - lastToggle > 200)) {
             net.sendBomb(net.currFocus->id);
             net.lastBomb = millis();
             net.currFocus = &net._me;
@@ -440,11 +448,19 @@ void loop() {
 
         net.pollData();
 
+        if (net.hasWon) {
+          if (memcmp(net.currFocus->id, net._me.id, PLAYER_TAG+1) == 0) {
+            display.drawButton(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, "YOU WON!\nSPECTATE OTHERS", 1, true);
+          }
+        }
+
         if (
+          !net.hasWon &&
           ((net._me.x/DIM[0]) >= 22 && (net._me.x/DIM[0]) <= 26) && 
           (net._me.y/DIM[1]) >= 22 && (net._me.y/DIM[1]) <= 26
         ) {
           net.sendWon(); // Add a spectate mode later on
+          net.hasWon = true;
         }
         if ((digitalRead(ENC_SW) == LOW || digitalRead(JOY_SW) == LOW) && (millis() - lastToggle > 200)) {
           Serial.println(net._me.x);

@@ -17,6 +17,7 @@ Networking::Networking() {
     }
     currFocus = &_me;
     _winCount = 0;
+    hasWon = false;
 }
 
 void Networking::begin() {
@@ -86,6 +87,7 @@ void Networking::sendBeacon() {
 
 void Networking::playAgain() {
   _winCount = 0;
+  hasWon = false;
   Packet pa;
   pa.type = PLAYAGAIN;
   for (auto &player : _players) {
@@ -100,6 +102,7 @@ void Networking::playAgain() {
 void Networking::resetData() {
   _playerCount = 0;
   _winCount = 0;
+  hasWon = false;
   for (auto &player : _players) {
     player.isActive = false;
   }
@@ -387,6 +390,7 @@ void Networking::OnDataRecv(const esp_now_recv_info_t* recv_info, const uint8_t*
       case PLAYAGAIN:
         _instance->_m = WAITING;
         _instance->_winCount = 0;
+        _instance->hasWon = false;
         for (auto &player : _instance->_players)
           player.lastBeat = millis();
         _instance->heartbeat();

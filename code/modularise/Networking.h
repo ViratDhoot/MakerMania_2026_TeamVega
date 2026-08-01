@@ -101,6 +101,7 @@ public:
   int crosshair_y;
   unsigned long jammed;
   bool isJammed;
+  bool hasWon;
   uint8_t _playerCount = 0;
 
 private:
